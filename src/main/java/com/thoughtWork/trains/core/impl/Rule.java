@@ -6,7 +6,7 @@ import com.thoughtWork.trains.domain.Trip;
  * Created by Administrator on 2016/9/10 0010.
  */
 public enum Rule {
-	MAXIMUM_STOPS_NUMBER("C", "C", 5),
+	MAXIMUM_STOPS_NUMBER("C", "C", 3),
 	EXACT_STOPS_NUMBER("A", "C", 4),
 	DEFAULT("", "", 10);
 

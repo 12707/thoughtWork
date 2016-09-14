@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by Administrator on 2016/9/10 0010.
@@ -42,21 +43,21 @@ public class DistanceComputerTest {
 	public void testComputeDistanceWith2Nodes() throws NoSuchRouteException {
 		initRoute("AD");
 		Integer distance = computer.compute(route, null);
-		Assert.assertThat(distance, is(5));
+		assertThat(distance, is(5));
 	}
 
 	@Test
 	public void testComputeDistanceWith3Nodes() throws NoSuchRouteException {
 		initRoute("ABC");
 		Integer distance = computer.compute(route, null);
-		Assert.assertThat(distance, is(9));
+		assertThat(distance, is(9));
 	}
 
 	@Test
 	public void testComputeDistanceWith5Nodes() throws NoSuchRouteException {
 		initRoute("AEBCD");
 		Integer distance = computer.compute(route, null);
-		Assert.assertThat(distance, is(22));
+		assertThat(distance, is(22));
 	}
 
 	@Test(expected = NoSuchRouteException.class)
