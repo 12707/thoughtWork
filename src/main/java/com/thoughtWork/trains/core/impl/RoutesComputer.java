@@ -10,9 +10,9 @@ import java.util.List;
 import static com.thoughtWork.trains.util.RoutesQueryUtil.lookup;
 
 /**
- * Created by Administrator on 2016/9/10 0010.
+ * Created by Administrator on 2016/9/15 0015.
  */
-public class TripsComputer extends AbstractComputer<Integer, Trip, Rule> {
+public class RoutesComputer extends AbstractComputer<Integer, Trip, Rule> {
 	@Override
 	public Integer compute(Trip trip, Rule rule) throws NoSuchRouteException {
 		List<String> trips = new ArrayList<>();

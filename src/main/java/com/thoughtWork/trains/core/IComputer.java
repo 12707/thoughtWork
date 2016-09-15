@@ -11,5 +11,7 @@ import java.util.List;
 public interface IComputer<U, T, R> {
 	U compute(T t, R r) throws NoSuchRouteException;
 
+	U compute(T t) throws NoSuchRouteException;
+
 	void prepareRoutesData(List<RouteNode> routeNodes);
 }

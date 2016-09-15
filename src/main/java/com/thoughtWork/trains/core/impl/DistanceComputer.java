@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class DistanceComputer extends AbstractComputer<Integer, Route, Rule> {
 	@Override
-	public Integer compute(Route route, Rule rule) throws NoSuchRouteException {
+	public Integer compute(Route route) throws NoSuchRouteException {
 		List<Trip> trips = new ArrayList<>();
 		if (route != null && route.getTowns() != null && route.getTowns().size() > 1) {
 			for (int i = 0; i < route.getTowns().size() - 1; i++) {

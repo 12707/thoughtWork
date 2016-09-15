@@ -12,8 +12,8 @@ import org.junit.runners.JUnit4;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
+import static com.thoughtWork.trains.core.impl.RouteNodesUtil.initialize;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -30,41 +30,29 @@ public class TripsComputerTest {
 
     @Before
     public void init() {
-        initRouteNodes(graph);
+        routeNodes = initialize(graph);
         computer.prepareRoutesData(routeNodes);
     }
 
     @Test
-    public void testCTripCompute() throws NoSuchRouteException {
+    public void testCCTripCompute() throws NoSuchRouteException {
         Trip trip = new Trip();
         trip.setStart(Town.buildTown("C"));
         trip.setEnd(Town.buildTown("C"));
-        int result = computer.compute(trip, Rule.MAXIMUM_STOPS_NUMBER);
+        int result = computer.compute(trip, Rule.C_C_MAXIMUM_STOPS_NUMBER);
 
         assertThat(result, is(2));
 
     }
 
+    @Test
+    public void testACTripCompute() throws NoSuchRouteException {
+        Trip trip = new Trip();
+        trip.setStart(Town.buildTown("A"));
+        trip.setEnd(Town.buildTown("C"));
+        int result = computer.compute(trip, Rule.A_C_EXACT_STOPS_NUMBER);
 
-    private void initRouteNodes(String nodes) {
-        StringTokenizer stringTokenizer = new StringTokenizer(nodes, ",");
-        while (stringTokenizer.hasMoreTokens()) {
-            String node = stringTokenizer.nextToken();
+        assertThat(result, is(3));
 
-            Town town_start = new Town();
-            town_start.setId(node.trim().substring(0, 1));
-            Town town_end = new Town();
-            town_end.setId(node.trim().substring(1, 2));
-
-            Trip trip = new Trip();
-            trip.setStart(town_start);
-            trip.setEnd(town_end);
-
-            RouteNode routeNode = new RouteNode();
-            routeNode.setTrip(trip);
-            routeNode.setDistance(Integer.valueOf(node.trim().substring(2, 3)));
-
-            routeNodes.add(routeNode);
-        }
     }
 }

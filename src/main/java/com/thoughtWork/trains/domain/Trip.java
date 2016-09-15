@@ -27,6 +27,13 @@ public class Trip {
 		this.end = end;
 	}
 
+	public Trip(Town start, Town end){
+		this.start = start;
+		this.end = end;
+	}
+
+	public Trip(){}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;

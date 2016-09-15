@@ -1,30 +1,21 @@
 package com.thoughtWork.trains.core.impl;
 
-import com.thoughtWork.trains.domain.Trip;
-
 /**
  * Created by Administrator on 2016/9/10 0010.
  */
 public enum Rule {
-	MAXIMUM_STOPS_NUMBER("C", "C", 3),
-	EXACT_STOPS_NUMBER("A", "C", 4),
-	DEFAULT("", "", 10);
+	C_C_MAXIMUM_STOPS_NUMBER(3),
+	A_C_EXACT_STOPS_NUMBER(4),
+	C_C_DISTANCE_LIMIT(30),
+	DEFAULT(10);
 
-	private String StartTownID;
-	private String endTownID;
-	private int stops;
+	private int limit;
 
-	Rule(String StartTownID, String endTownID, int stops) {
-		this.StartTownID = StartTownID;
-		this.endTownID = endTownID;
-		this.stops = stops;
+	Rule(int limit) {
+		this.limit = limit;
 	}
 
-	public int retriveLimitedStops(Trip trip) {
-		if (trip.getStart().getId().equals(StartTownID) && trip.getEnd().getId().equals(endTownID)) {
-			return stops;
-		} else {
-			return DEFAULT.stops;
-		}
+	public int getLimit() {
+		return limit;
 	}
 }
