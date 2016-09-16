@@ -1,9 +1,9 @@
-package com.thoughtWork.trains.core.impl;
+package com.thoughtWork.trains.core;
 
 /**
- * Created by Administrator on 2016/9/10 0010.
+ * A series of rules related to different trips, which could be used in Computer implementation.
  */
-public enum Rule {
+public enum TripRule {
 	C_C_MAXIMUM_STOPS_NUMBER(3),
 	A_C_EXACT_STOPS_NUMBER(4),
 	C_C_DISTANCE_LIMIT(30),
@@ -11,7 +11,7 @@ public enum Rule {
 
 	private int limit;
 
-	Rule(int limit) {
+	TripRule(int limit) {
 		this.limit = limit;
 	}
 

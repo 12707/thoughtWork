@@ -1,6 +1,6 @@
 package com.thoughtWork.trains.core;
 
-import com.thoughtWork.trains.domain.RouteNode;
+import com.thoughtWork.trains.domain.TripNode;
 import com.thoughtWork.trains.exception.NoSuchRouteException;
 
 import java.util.List;
@@ -13,5 +13,5 @@ public interface IComputer<U, T, R> {
 
 	U compute(T t) throws NoSuchRouteException;
 
-	void prepareRoutesData(List<RouteNode> routeNodes);
+	void prepareRoutesData(List<TripNode> tripNodes);
 }

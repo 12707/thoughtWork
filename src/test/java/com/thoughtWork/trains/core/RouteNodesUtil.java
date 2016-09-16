@@ -1,6 +1,6 @@
-package com.thoughtWork.trains.core.impl;
+package com.thoughtWork.trains.core;
 
-import com.thoughtWork.trains.domain.RouteNode;
+import com.thoughtWork.trains.domain.TripNode;
 import com.thoughtWork.trains.domain.Town;
 import com.thoughtWork.trains.domain.Trip;
 
@@ -12,8 +12,8 @@ import java.util.StringTokenizer;
  * Created by Administrator on 2016/9/14 0014.
  */
 public class RouteNodesUtil {
-	public static List<RouteNode> initialize(String nodes){
-		List<RouteNode> routeNodes = new ArrayList<>();
+	public static List<TripNode> initialize(String nodes){
+		List<TripNode> tripNodes = new ArrayList<>();
 		StringTokenizer stringTokenizer = new StringTokenizer(nodes, ",");
 		while (stringTokenizer.hasMoreTokens()) {
 			String node = stringTokenizer.nextToken();
@@ -23,16 +23,16 @@ public class RouteNodesUtil {
 			Town town_end = new Town();
 			town_end.setId(node.trim().substring(1, 2));
 
-			Trip trip = new Trip();
+			Trip trip = new Builder().createTrip();
 			trip.setStart(town_start);
 			trip.setEnd(town_end);
 
-			RouteNode routeNode = new RouteNode();
-			routeNode.setTrip(trip);
-			routeNode.setDistance(Integer.valueOf(node.trim().substring(2, 3)));
+			TripNode tripNode = new TripNode();
+			tripNode.setTrip(trip);
+			tripNode.setDistance(Integer.valueOf(node.trim().substring(2, 3)));
 
-			routeNodes.add(routeNode);
+			tripNodes.add(tripNode);
 		}
-		return routeNodes;
+		return tripNodes;
 	}
 }

@@ -1,6 +1,6 @@
 package com.thoughtWork.trains.core;
 
-import com.thoughtWork.trains.domain.RouteNode;
+import com.thoughtWork.trains.domain.TripNode;
 import com.thoughtWork.trains.exception.NoSuchRouteException;
 
 import java.util.ArrayList;
@@ -10,13 +10,13 @@ import java.util.List;
  * Created by Administrator on 2016/9/10 0010.
  */
 public abstract class AbstractComputer<U, T, R> implements IComputer<U, T, R> {
-	protected List<RouteNode> routeNodes;
+	protected List<TripNode> tripNodes;
 
 	@Override
-	public void prepareRoutesData(List<RouteNode> routeNodes) {
-		if (routeNodes != null) {
-			this.routeNodes = new ArrayList();
-			routeNodes.stream().forEach(routeNode -> this.routeNodes.add(routeNode));
+	public void prepareRoutesData(List<TripNode> tripNodes) {
+		if (tripNodes != null) {
+			this.tripNodes = new ArrayList();
+			tripNodes.stream().forEach(routeNode -> this.tripNodes.add(routeNode));
 		}
 	}
 

@@ -4,55 +4,72 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
- * Created by Administrator on 2016/9/8 0008.
+ * It contains start point and end point of a journey.
  */
 public class Trip {
-	private Town start;
+    private Town start;
 
-	private Town end;
+    private Town end;
 
-	public Town getStart() {
-		return start;
-	}
+    public Town getStart() {
+        return start;
+    }
 
-	public void setStart(Town start) {
-		this.start = start;
-	}
+    public Town getEnd() {
+        return end;
+    }
 
-	public Town getEnd() {
-		return end;
-	}
 
-	public void setEnd(Town end) {
-		this.end = end;
-	}
+    private Trip(Town start, Town end) {
+        this.start = start;
+        this.end = end;
+    }
 
-	public Trip(Town start, Town end){
-		this.start = start;
-		this.end = end;
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
 
-	public Trip(){}
+        if (o == null || getClass() != o.getClass()) return false;
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
+        Trip trip = (Trip) o;
 
-		if (o == null || getClass() != o.getClass()) return false;
+        return new EqualsBuilder()
+                .append(start, trip.start)
+                .append(end, trip.end)
+                .isEquals();
+    }
 
-		Trip trip = (Trip) o;
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(start)
+                .append(end)
+                .toHashCode();
+    }
 
-		return new EqualsBuilder()
-				.append(start, trip.start)
-				.append(end, trip.end)
-				.isEquals();
-	}
+    public static final class Builder {
+        private Town start;
+        private Town end;
 
-	@Override
-	public int hashCode() {
-		return new HashCodeBuilder(17, 37)
-				.append(start)
-				.append(end)
-				.toHashCode();
-	}
+        private Builder() {
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public Builder withStart(Town start) {
+            this.start = start;
+            return this;
+        }
+
+        public Builder withEnd(Town end) {
+            this.end = end;
+            return this;
+        }
+
+        public Trip build() {
+            return new Trip(start, end);
+        }
+    }
 }
