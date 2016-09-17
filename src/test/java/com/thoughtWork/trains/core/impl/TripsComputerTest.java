@@ -13,7 +13,7 @@ import org.junit.runners.JUnit4;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.thoughtWork.trains.core.RouteNodesUtil.initialize;
+import static com.thoughtWork.trains.core.RouteNodesTestUtil.initialize;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -22,46 +22,46 @@ import static org.junit.Assert.assertThat;
  */
 @RunWith(JUnit4.class)
 public class TripsComputerTest {
-    private IComputer<Integer, Trip, TripRule> computer = new TripsComputer();
+	private IComputer<Integer, Trip, TripRule> computer = new TripsComputer();
 
-    private List<TripNode> tripNodes = new ArrayList<>();
+	private List<TripNode> tripNodes = new ArrayList<>();
 
-    private String graph = "AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7";
+	private String graph = "AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7";
 
-    @Before
-    public void init() {
-        tripNodes = initialize(graph);
-        computer.prepareRoutesData(tripNodes);
-    }
+	@Before
+	public void init() {
+		tripNodes = initialize(graph);
+		computer.prepareRoutesData(tripNodes);
+	}
 
-    @Test
-    public void testCCTripCompute() {
-        int result = computer.compute(Trip.Builder.builder()
-                .withStart(Town.Builder.builder().withId("C").build())
-                .withEnd(Town.Builder.builder().withId("C").build())
-                .build(), TripRule.C_C_MAXIMUM_STOPS_NUMBER);
+	@Test
+	public void testCCTripCompute() {
+		int result = computer.compute(Trip.Builder.builder()
+				.withStart(Town.Builder.builder().withId("C").build())
+				.withEnd(Town.Builder.builder().withId("C").build())
+				.build(), TripRule.C_C_MAXIMUM_STOPS_NUMBER);
 
-        assertThat(result, is(2));
+		assertThat(result, is(2));
 
-    }
+	}
 
-    @Test
-    public void testACTripCompute() {
-        int result = computer.compute(Trip.Builder.builder()
-                .withStart(Town.Builder.builder().withId("C").build())
-                .withEnd(Town.Builder.builder().withId("C").build())
-                .build(), TripRule.A_C_EXACT_STOPS_NUMBER);
+	@Test
+	public void testACTripCompute() {
+		int result = computer.compute(Trip.Builder.builder()
+				.withStart(Town.Builder.builder().withId("A").build())
+				.withEnd(Town.Builder.builder().withId("C").build())
+				.build(), TripRule.A_C_EXACT_STOPS_NUMBER);
 
-        assertThat(result, is(3));
-    }
+		assertThat(result, is(3));
+	}
 
-    @Test
-    public void testCCTripLimitedDistanceIn30Compute() {
-        int result = computer.compute(Trip.Builder.builder()
-                .withStart(Town.Builder.builder().withId("C").build())
-                .withEnd(Town.Builder.builder().withId("C").build())
-                .build(), TripRule.C_C_DISTANCE_LIMIT);
+	@Test
+	public void testCCTripLimitedDistanceIn30Compute() {
+		int result = computer.compute(Trip.Builder.builder()
+				.withStart(Town.Builder.builder().withId("C").build())
+				.withEnd(Town.Builder.builder().withId("C").build())
+				.build(), TripRule.C_C_DISTANCE_LIMIT);
 
-        assertThat(result, is(12));
-    }
+		assertThat(result, is(7));
+	}
 }

@@ -3,7 +3,7 @@ package com.thoughtWork.trains.core;
 import com.thoughtWork.trains.domain.TripNode;
 import com.thoughtWork.trains.exception.NoSuchRouteException;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -14,19 +14,16 @@ public abstract class AbstractComputer<U, T, R> implements IComputer<U, T, R> {
 
 	@Override
 	public void prepareRoutesData(List<TripNode> tripNodes) {
-		if (tripNodes != null) {
-			this.tripNodes = new ArrayList();
-			tripNodes.stream().forEach(routeNode -> this.tripNodes.add(routeNode));
-		}
+		this.tripNodes = Collections.unmodifiableList(tripNodes);
 	}
 
 	@Override
-	public U compute(T t, R r) throws NoSuchRouteException {
+	public U compute(T t, R r) {
 		throw new NoSuchRouteException();
 	}
 
 	@Override
-	public U compute(T t) throws NoSuchRouteException {
+	public U compute(T t) {
 		return compute(t, null);
 	}
 }

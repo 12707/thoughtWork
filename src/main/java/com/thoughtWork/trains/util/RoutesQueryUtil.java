@@ -40,8 +40,11 @@ public class RoutesQueryUtil {
                 isAdded = !isRecursive && childRouteNode.getTrip().getEnd().equals(end);
             } else if (tripRule == TripRule.C_C_DISTANCE_LIMIT) {
                 isRecursive = (distance + childRouteNode.getDistance()) < tripRule.getLimit();
+                isAdded = childRouteNode.getTrip().getEnd().equals(end) && isRecursive;
+            }else if(tripRule == TripRule.SHORTEST_DISTANCE){
+                isRecursive = childRouteNode.getTrip().getEnd().equals(end) ? false : ((routes.size() - 1) < TripRule.DEFAULT.getLimit());
                 isAdded = childRouteNode.getTrip().getEnd().equals(end);
-            } else {
+            }else {
                 isRecursive = ((routes.size() - 1) < TripRule.DEFAULT.getLimit());
                 isAdded = childRouteNode.getTrip().getEnd().equals(end);
             }

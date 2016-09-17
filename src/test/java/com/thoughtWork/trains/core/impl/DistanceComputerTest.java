@@ -4,6 +4,7 @@ import com.thoughtWork.trains.core.IComputer;
 import com.thoughtWork.trains.core.TripRule;
 import com.thoughtWork.trains.domain.Route;
 import com.thoughtWork.trains.domain.Town;
+import com.thoughtWork.trains.domain.Trip;
 import com.thoughtWork.trains.domain.TripNode;
 import com.thoughtWork.trains.exception.NoSuchRouteException;
 import org.junit.Before;
@@ -14,7 +15,7 @@ import org.junit.runners.JUnit4;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.thoughtWork.trains.core.RouteNodesUtil.initialize;
+import static com.thoughtWork.trains.core.RouteNodesTestUtil.initialize;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -63,6 +64,20 @@ public class DistanceComputerTest {
     public void testComputeDistanceWithException() {
         initRoute("AED");
         computer.compute(route);
+    }
+
+    @Test
+    public void testACShortestDistanceCompute() {
+        initRoute("AC");
+        Integer distance = computer.compute(route, TripRule.SHORTEST_DISTANCE);
+        assertThat(distance, is(9));
+    }
+
+    @Test
+    public void testBBShortestDistanceCompute() {
+        initRoute("BB");
+        Integer distance = computer.compute(route, TripRule.SHORTEST_DISTANCE);
+        assertThat(distance, is(9));
     }
 
     private void initRoute(String stops) {

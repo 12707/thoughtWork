@@ -1,5 +1,6 @@
 package com.thoughtWork.trains.domain;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,14 +15,11 @@ public class Route {
     }
 
     private Route(List<Town> towns) {
-        List<Town> list = Collections.EMPTY_LIST;
-        list.addAll(towns);
-        this.towns = list;
+        this.towns = Collections.unmodifiableList(towns);
     }
 
     public static final class Builder {
         private List<Town> towns;
-
         private Builder() {
         }
 
