@@ -4,7 +4,6 @@ import com.thoughtWork.trains.core.IComputer;
 import com.thoughtWork.trains.core.TripRule;
 import com.thoughtWork.trains.domain.Route;
 import com.thoughtWork.trains.domain.Town;
-import com.thoughtWork.trains.domain.Trip;
 import com.thoughtWork.trains.domain.TripNode;
 import com.thoughtWork.trains.exception.NoSuchRouteException;
 import org.junit.Before;
@@ -15,7 +14,7 @@ import org.junit.runners.JUnit4;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.thoughtWork.trains.core.RouteNodesTestUtil.initialize;
+import static com.thoughtWork.trains.RouteNodesTestUtil.initialize;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

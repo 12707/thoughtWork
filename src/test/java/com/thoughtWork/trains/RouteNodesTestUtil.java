@@ -1,4 +1,4 @@
-package com.thoughtWork.trains.core;
+package com.thoughtWork.trains;
 
 import com.thoughtWork.trains.domain.TripNode;
 import com.thoughtWork.trains.domain.Town;
