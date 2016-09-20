@@ -7,25 +7,19 @@ import com.thoughtWork.trains.core.impl.TripsComputer;
 import com.thoughtWork.trains.domain.Route;
 import com.thoughtWork.trains.domain.Trip;
 import com.thoughtWork.trains.domain.TripNode;
-import com.thoughtWork.trains.response.RouteDistanceResponse;
 import com.thoughtWork.trains.service.ITrainInfoService;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
-
 
 import java.util.List;
 
-import static com.thoughtWork.trains.RouteNodesTestUtil.initialize;
+import static com.thoughtWork.trains.util.RouteNodesUtil.initialize;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 import static org.springframework.util.Assert.notNull;
 
 /**
@@ -37,17 +31,52 @@ public class TrainInfoServiceImplTest {
     private ITrainInfoService trainInfoService;
 
     @Test
-    public void testCalcRouteShortestDistance() {
-        RouteDistanceResponse routeDistanceResponse = trainInfoService.calcRouteDistance("AC", true);
+    public void testCalcRouteACShortestDistance() {
+        String routeDistanceResponse = trainInfoService.calcRouteDistance("A-C", true);
         notNull(routeDistanceResponse);
-        Assert.assertThat(routeDistanceResponse.getDistance(), is(9));
+        assertThat(routeDistanceResponse, is("9"));
+    }
+
+    @Test
+    public void testCalcRouteBBShortestDistance() {
+        String routeDistanceResponse = trainInfoService.calcRouteDistance("A-C", true);
+        notNull(routeDistanceResponse);
+        assertThat(routeDistanceResponse, is("9"));
+    }
+
+    @Test
+    public void testCalcRouteDistance() {
+        String routeDistanceResponse = trainInfoService.calcRouteDistance("A-E-B-C-D", false);
+        notNull(routeDistanceResponse);
+        assertThat(routeDistanceResponse, is("22"));
+    }
+
+    @Test
+    public void testCalcCCTripNumberNonDistanceRestriction() {
+        String response = trainInfoService.calcTripNumber("CC", "maximum", 3);
+        notNull(response);
+        assertThat(response, is("2"));
+    }
+
+    @Test
+    public void testCalcACTripNumberNonDistanceRestriction() {
+        String response = trainInfoService.calcTripNumber("AC", "EXACT", 4);
+        notNull(response);
+        assertThat(response, is("3"));
+    }
+
+    @Test
+    public void testCalcCCTripNumberWithDistanceRestriction() {
+        String response = trainInfoService.calcTripNumber("CC", "LESS", 30);
+        notNull(response);
+        assertThat(response, is("7"));
     }
 
     @Configuration
     static class Config {
-        public static String graph = "AB5, AB4, CD8, DC8, DE6, AD5, CE2, EB3, AE7";
+        public static String graph = "AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7";
 
-        public static List<TripNode> tripNodes = initialize(graph);
+        //public static List<TripNode> tripNodes = initialize(graph);
 
         @Bean
         public ITrainInfoService trainInfoServiceBuilder() {
@@ -57,15 +86,20 @@ public class TrainInfoServiceImplTest {
         @Bean
         public IComputer<Integer, Route, TripRule> getDistanceComputer() {
             IComputer<Integer, Route, TripRule> computer = new DistanceComputer();
-            computer.prepareRoutesData(tripNodes);
+            //computer.prepareRoutesData(tripNodes);
             return computer;
         }
 
         @Bean
         public IComputer<Integer, Trip, TripRule> getTripComputer() {
             IComputer<Integer, Trip, TripRule> computer = new TripsComputer();
-            computer.prepareRoutesData(tripNodes);
+            //computer.prepareRoutesData(tripNodes);
             return computer;
+        }
+
+        @Bean
+        public List<TripNode> init() {
+            return initialize(graph);
         }
     }
 }

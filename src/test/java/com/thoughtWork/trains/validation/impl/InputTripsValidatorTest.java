@@ -10,7 +10,7 @@ import org.junit.runners.JUnit4;
 
 import java.util.List;
 
-import static com.thoughtWork.trains.RouteNodesTestUtil.initialize;
+import static com.thoughtWork.trains.util.RouteNodesUtil.initialize;
 
 /**
  * Created by Administrator on 2016/9/18 0018.

@@ -32,19 +32,28 @@ public class RoutesQueryUtil {
             routes.add(childRouteNode.getTrip().getEnd());
 
             boolean isRecursive = false, isAdded = false;
-            if (tripRule == TripRule.C_C_MAXIMUM_STOPS_NUMBER) {
+            if (tripRule == TripRule.C_C_MAXIMUM_STOPS_NUMBER) {//could be replaced by MAXIMUM
                 isRecursive = ((routes.size() - 1) < tripRule.getLimit());
                 isAdded = childRouteNode.getTrip().getEnd().equals(end);
-            } else if (tripRule == TripRule.A_C_EXACT_STOPS_NUMBER) {
+            } else if (tripRule == TripRule.A_C_EXACT_STOPS_NUMBER) {//could be replaced by EXACT
                 isRecursive = ((routes.size() - 1) != tripRule.getLimit());
                 isAdded = !isRecursive && childRouteNode.getTrip().getEnd().equals(end);
-            } else if (tripRule == TripRule.C_C_DISTANCE_LIMIT) {
+            } else if (tripRule == TripRule.C_C_DISTANCE_LIMIT) {//could be replaced by LESS
                 isRecursive = (distance + childRouteNode.getDistance()) < tripRule.getLimit();
                 isAdded = childRouteNode.getTrip().getEnd().equals(end) && isRecursive;
-            }else if(tripRule == TripRule.SHORTEST_DISTANCE){
+            } else if (tripRule == TripRule.SHORTEST_DISTANCE) {
                 isRecursive = childRouteNode.getTrip().getEnd().equals(end) ? false : ((routes.size() - 1) < TripRule.DEFAULT.getLimit());
                 isAdded = childRouteNode.getTrip().getEnd().equals(end);
-            }else {
+            } else if (tripRule == TripRule.MAXIMUM) {
+                isRecursive = ((routes.size() - 1) < tripRule.getLimit());
+                isAdded = childRouteNode.getTrip().getEnd().equals(end);
+            } else if (tripRule == TripRule.EXACT) {
+                isRecursive = ((routes.size() - 1) != tripRule.getLimit());
+                isAdded = !isRecursive && childRouteNode.getTrip().getEnd().equals(end);
+            }else if (tripRule == TripRule.LESS) {
+                isRecursive = (distance + childRouteNode.getDistance()) < tripRule.getLimit();
+                isAdded = childRouteNode.getTrip().getEnd().equals(end) && isRecursive;
+            } else {
                 isRecursive = ((routes.size() - 1) < TripRule.DEFAULT.getLimit());
                 isAdded = childRouteNode.getTrip().getEnd().equals(end);
             }

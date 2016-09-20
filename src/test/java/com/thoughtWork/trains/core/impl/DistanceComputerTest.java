@@ -14,7 +14,7 @@ import org.junit.runners.JUnit4;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.thoughtWork.trains.RouteNodesTestUtil.initialize;
+import static com.thoughtWork.trains.util.RouteNodesUtil.initialize;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
