@@ -16,6 +16,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
@@ -28,8 +31,8 @@ import static org.springframework.util.Assert.notNull;
 /**
  * Created by Administrator on 2016/9/19 0019.
  */
-@RunWith(SpringRunner.class)
-class TrainInfoServiceImplTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+public class TrainInfoServiceImplTest {
     @Autowired
     private ITrainInfoService trainInfoService;
 
@@ -40,7 +43,7 @@ class TrainInfoServiceImplTest {
         Assert.assertThat(routeDistanceResponse.getDistance(), is(9));
     }
 
-    @TestConfig
+    @Configuration
     static class Config {
         public static String graph = "AB5, AB4, CD8, DC8, DE6, AD5, CE2, EB3, AE7";
 
