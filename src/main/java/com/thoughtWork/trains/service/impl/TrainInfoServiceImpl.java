@@ -29,34 +29,23 @@ public class TrainInfoServiceImpl implements ITrainInfoService {
 
     @Override
     public RouteDistanceResponse calcRouteDistance(String routes, boolean isShortest) {
-        RouteDistanceResponse response = new RouteDistanceResponse();
-        int distance;
+        TripRule tripRule = null;
         if (isShortest) {
-            distance = distanceComputer.compute(generateRoute(routes), TripRule.SHORTEST_DISTANCE);
-        } else {
-            distance = distanceComputer.compute(generateRoute(routes), null);
+            tripRule = TripRule.SHORTEST_DISTANCE;
         }
+        int distance = distanceComputer.compute(generateRoute(routes), tripRule);
+        RouteDistanceResponse response = new RouteDistanceResponse();
         response.setDistance(distance);
         return response;
     }
 
     @Override
     public TripNumberResponse calcTripNumber(String trip, boolean isDistanceRestriction) {
-        TripNumberResponse response = new TripNumberResponse();
-        int tripNumber;
         Trip tripObj = generateTrip(trip);
-        TripRule tripRule = null;
-
-        if(tripObj != null){
-//            if(tripObj.getStart().equals())
-        }
-
-        if (isDistanceRestriction) {
-
-//            tripNumber = tripsComputer.compute()
-        } else {
-
-        }
+        TripRule tripRule = generateTripRule(tripObj, isDistanceRestriction);
+        int tripNumber = tripsComputer.compute(tripObj, tripRule);
+        TripNumberResponse response = new TripNumberResponse();
+        response.setTripNumber(tripNumber);
         return response;
     }
 
@@ -70,6 +59,27 @@ public class TrainInfoServiceImpl implements ITrainInfoService {
     }
 
     private Trip generateTrip(String trip) {
-        return Trip.Builder.builder().build();
+        return Trip.Builder.builder()
+                .withStart(Town.Builder.builder().withId(trip.substring(0, 1)).build())
+                .withEnd(Town.Builder.builder().withId(trip.substring(1, 2)).build())
+                .build();
+    }
+
+    private TripRule generateTripRule(Trip trip, boolean isDistanceRestriction) {
+        TripRule result;
+        Town aTown = Town.Builder.builder().withId("A").build();
+        Town cTown = Town.Builder.builder().withId("C").build();
+        if (cTown.equals(trip.getStart()) && cTown.equals(trip.getEnd())) {
+            if (isDistanceRestriction) {
+                result = TripRule.C_C_DISTANCE_LIMIT;
+            } else {
+                result = TripRule.C_C_MAXIMUM_STOPS_NUMBER;
+            }
+        } else if (aTown.equals(trip.getStart()) && aTown.equals(trip.getEnd())) {
+            result = TripRule.A_C_EXACT_STOPS_NUMBER;
+        } else {
+            result = TripRule.DEFAULT;
+        }
+        return result;
     }
 }
