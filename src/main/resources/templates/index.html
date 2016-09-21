@@ -2,16 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title>Welcome to ^-^ Thymeleaf based website</title>
 </head>
 <body>
+
 <h1>Please upload a file</h1>
-<form method="post" action="/upload" enctype="multipart/form-data">
-    <input type="text" name="name"/>
+<form method="post" action="/train/view/upload" enctype="multipart/form-data">
     <input type="file" name="file"/>
     <input type="submit"/>
 </form>
 
-<p th:text="${Hello}"></p>
 </body>
 </html>

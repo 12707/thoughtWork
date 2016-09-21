@@ -1,10 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
-    <title>Detail</title>
+    <title>The detail page of every questions</title>
 </head>
+
 <body>
-    This is detail!@
+    <table border="1" cellpadding="1" cellspacing="1">
+        <tr>
+            <td>1.	The distance of the route A-B-C：</td>
+            <td th:text="${answers['DISTANCE_A_B_C']}" align="center"></td>
+        </tr>
+        <tr>
+            <td>2.	The distance of the route A-D：</td>
+            <td th:text="${answers['DISTANCE_A_D']}" align="center"></td>
+        </tr>
+        <tr>
+            <td>3.	The distance of the route A-D-C：</td>
+            <td th:text="${answers['DISTANCE_A_D_C']}" align="center"></td>
+        </tr>
+        <tr>
+            <td>4.	The distance of the route A-E-B-C-D：</td>
+            <td th:text="${answers['DISTANCE_A_E_B_C_D']}" align="center"></td>
+        </tr>
+        <tr>
+            <td>5.	The distance of the route A-E-D：</td>
+            <td th:text="${answers['DISTANCE_A_E_D']}" align="center"></td>
+        </tr>
+        <tr>
+            <td>6.	The number of trips starting at C and ending at C with a maximum of 3 stops.  In the sample data below, there are two such trips: C-D-C (2 stops). and C-E-B-C (3 stops)：</td>
+            <td th:text="${answers['MAXIMUM_3_STOPS_C_C']}" align="center"></td>
+        </tr>
+        <tr>
+            <td>7.	The number of trips starting at A and ending at C with exactly 4 stops.  In the sample data below, there are three such trips: A to C (via B,C,D); A to C (via D,C,D); and A to C (via D,E,B)：</td>
+            <td th:text="${answers['EXACT_4_STOPS_A_C']}" align="center"></td>
+        </tr>
+        <tr>
+            <td>8.	The length of the shortest route (in terms of distance to travel) from A to C：</td>
+            <td th:text="${answers['SHORTEST_A_C']}" align="center"></td>
+        </tr>
+        <tr>
+            <td>9.	The length of the shortest route (in terms of distance to travel) from B to B：</td>
+            <td th:text="${answers['SHORTEST_B_B']}" align="center"></td>
+        </tr>
+        <tr>
+            <td>10.	The number of different routes from C to C with a distance of less than 30.  In the sample data, the trips are: CDC, CEBC, CEBCDC, CDCEBC, CDEBC, CEBCEBC, CEBCEBCEBC：</td>
+            <td th:text="${answers['LESS_DISTANCE_30_C_C']}" align="center"></td>
+        </tr>
+    </table>
+
+    <a href="#" th:href="@{/train/view/}"> 《&nbsp; Back to upload</a>
 </body>
 </html>

@@ -5,8 +5,15 @@
     <title>Upload file success</title>
 </head>
 <body>
-    Congratulations! You have success to upload a file to change the initialized Input Graph.<br/>
 
-    <a href="#" th:href="@{/homework}">Homework</a>
+    <h1>Congratulations!</h1>
+
+    <h2>You have made successful to upload a file to change input graph:</h2>
+
+    <p th:text="${graph}">AB2, BC4</p>
+
+    <a href="#" th:href="@{/train/view/homework}">Calculate it &nbsp;>>></a>
+
+    <a href="#" th:href="@{/train/view/}"> 《&nbsp; Back to upload</a>
 </body>
 </html>

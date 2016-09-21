@@ -13,10 +13,9 @@ import com.thoughtWork.trains.validation.impl.InputTripsValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
@@ -27,74 +26,74 @@ import static org.springframework.util.Assert.notNull;
 /**
  * Created by Administrator on 2016/9/19 0019.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 public class TrainInfoServiceImplTest {
-	@Autowired
-	private ITrainInfoService trainInfoService;
+    @Autowired
+    private ITrainInfoService trainInfoService;
 
-	@Test
-	public void testCalcRouteACShortestDistance() {
-		String routeDistanceResponse = trainInfoService.calcRouteDistance("A-C", true);
-		notNull(routeDistanceResponse);
-		assertThat(routeDistanceResponse, is("9"));
-	}
+    @Test
+    public void testCalcRouteACShortestDistance() {
+        String routeDistanceResponse = trainInfoService.calcRouteDistance("A-C", true);
+        notNull(routeDistanceResponse);
+        assertThat(routeDistanceResponse, is("9"));
+    }
 
-	@Test
-	public void testCalcRouteBBShortestDistance() {
-		String routeDistanceResponse = trainInfoService.calcRouteDistance("A-C", true);
-		notNull(routeDistanceResponse);
-		assertThat(routeDistanceResponse, is("9"));
-	}
+    @Test
+    public void testCalcRouteBBShortestDistance() {
+        String routeDistanceResponse = trainInfoService.calcRouteDistance("B-B", true);
+        notNull(routeDistanceResponse);
+        assertThat(routeDistanceResponse, is("9"));
+    }
 
-	@Test
-	public void testCalcRouteDistance() {
-		String routeDistanceResponse = trainInfoService.calcRouteDistance("A-E-B-C-D", false);
-		notNull(routeDistanceResponse);
-		assertThat(routeDistanceResponse, is("22"));
-	}
+    @Test
+    public void testCalcRouteDistance() {
+        String routeDistanceResponse = trainInfoService.calcRouteDistance("A-E-B-C-D", false);
+        notNull(routeDistanceResponse);
+        assertThat(routeDistanceResponse, is("22"));
+    }
 
-	@Test
-	public void testCalcCCTripNumberNonDistanceRestriction() {
-		String response = trainInfoService.calcTripNumber("CC", "maximum", 3);
-		notNull(response);
-		assertThat(response, is("2"));
-	}
+    @Test
+    public void testCalcCCTripNumberNonDistanceRestriction() {
+        String response = trainInfoService.calcTripNumber("CC", "maximum", 3);
+        notNull(response);
+        assertThat(response, is("2"));
+    }
 
-	@Test
-	public void testCalcACTripNumberNonDistanceRestriction() {
-		String response = trainInfoService.calcTripNumber("AC", "EXACT", 4);
-		notNull(response);
-		assertThat(response, is("3"));
-	}
+    @Test
+    public void testCalcACTripNumberNonDistanceRestriction() {
+        String response = trainInfoService.calcTripNumber("AC", "EXACT", 4);
+        notNull(response);
+        assertThat(response, is("3"));
+    }
 
-	@Test
-	public void testCalcCCTripNumberWithDistanceRestriction() {
-		String response = trainInfoService.calcTripNumber("CC", "LESS", 30);
-		notNull(response);
-		assertThat(response, is("7"));
-	}
+    @Test
+    public void testCalcCCTripNumberWithDistanceRestriction() {
+        String response = trainInfoService.calcTripNumber("CC", "LESS", 30);
+        notNull(response);
+        assertThat(response, is("7"));
+    }
 
-	@Configuration
-	static class Config {
-		@Bean
-		public IComputer<Integer, Route, TripRule> getDistanceComputer() {
-			return new DistanceComputer();
-		}
+    @TestConfiguration
+    static class Config {
+        @Bean
+        public IComputer<Integer, Route, TripRule> getDistanceComputer() {
+            return new DistanceComputer();
+        }
 
-		@Bean
-		public IComputer<Integer, Trip, TripRule> getTripComputer() {
-			return new TripsComputer();
-		}
+        @Bean
+        public IComputer<Integer, Trip, TripRule> getTripComputer() {
+            return new TripsComputer();
+        }
 
-		@Bean
-		public ITrainInfoService trainInfoServiceBuilder() {
-			return new TrainInfoServiceImpl();
-		}
+        @Bean
+        public ITrainInfoService trainInfoServiceBuilder() {
+            return new TrainInfoServiceImpl();
+        }
 
-		@Bean
-		public IValidator<List<TripNode>> getvlidator() {
-			return new InputTripsValidator();
-		}
+        @Bean
+        public IValidator<List<TripNode>> getValidator() {
+            return new InputTripsValidator();
+        }
 
-	}
+    }
 }

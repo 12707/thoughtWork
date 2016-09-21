@@ -10,15 +10,13 @@ import com.thoughtWork.trains.service.ITrainInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /**
  * Created by Administrator on 2016/9/18 0018.
  */
 
-@Service
+@Service("trainInfoService")
 public class TrainInfoServiceImpl implements ITrainInfoService {
     @Autowired
     private IComputer<Integer, Route, TripRule> distanceComputer;
@@ -36,7 +34,7 @@ public class TrainInfoServiceImpl implements ITrainInfoService {
         try {
             result.append(distanceComputer.compute(generateRoute(routes), tripRule));
         } catch (NoSuchRouteException e) {
-            result.append(e.getClass().getName());
+            result.append("No Such Route");
         }
         return result.toString();
     }
@@ -65,6 +63,22 @@ public class TrainInfoServiceImpl implements ITrainInfoService {
         distanceComputer.prepareRoutesData(graph);
         tripsComputer.prepareRoutesData(graph);
         return true;
+    }
+
+    @Override
+    public Map<String, Object> calcGroups() {
+        Map<String, Object> map = new HashMap();
+        map.put("DISTANCE_A_B_C", calcRouteDistance("A-B-C", false));
+        map.put("DISTANCE_A_D", calcRouteDistance("A-D", false));
+        map.put("DISTANCE_A_D_C", calcRouteDistance("A-D-C", false));
+        map.put("DISTANCE_A_E_B_C_D", calcRouteDistance("A-E-B-C-D", false));
+        map.put("DISTANCE_A_E_D", calcRouteDistance("A-E-D", false));
+        map.put("MAXIMUM_3_STOPS_C_C", calcTripNumber("CC", "MAXIMUM", 3));
+        map.put("EXACT_4_STOPS_A_C", calcTripNumber("AC", "EXACT", 4));
+        map.put("SHORTEST_A_C", calcRouteDistance("A-C", true));
+        map.put("SHORTEST_B_B", calcRouteDistance("B-B", true));
+        map.put("LESS_DISTANCE_30_C_C", calcTripNumber("CC", "LESS", 30));
+        return map;
     }
 
     private Route generateRoute(String routes) {

@@ -1,5 +1,7 @@
 package com.thoughtWork.trains.service;
 
+import java.util.Map;
+
 /**
  * Created by Administrator on 2016/9/18 0018.
  */
@@ -11,4 +13,6 @@ public interface ITrainInfoService {
     String calcTripNumber(String trip, String rule, int limit);
 
     boolean changeInitData(String graph);
+
+    Map<String, Object> calcGroups();
 }
