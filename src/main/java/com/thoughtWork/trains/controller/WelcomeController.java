@@ -7,7 +7,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.context.WebContext;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -21,8 +25,13 @@ public class WelcomeController {
 	@Autowired
 	private ITrainInfoService trainInfoService;
 
+	@Autowired
+	private ServletContext servletContext;
+
 	@RequestMapping("/")
-	public String welcome() {
+	public String welcome(HttpServletRequest request, HttpServletResponse response) {
+		WebContext webContext = new WebContext(request, response, servletContext);
+		webContext.setVariable("Hello", "World!!!!");
 		return "index";
 	}
 
@@ -56,5 +65,10 @@ public class WelcomeController {
 			}
 		}
 		return "error";
+	}
+
+	@RequestMapping("/homework")
+	public String homework(HttpServletRequest request, HttpServletResponse response) {
+		return "detail";
 	}
 }

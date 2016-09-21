@@ -15,8 +15,9 @@ import static com.thoughtWork.trains.util.RouteNodesUtil.initialize;
  */
 public abstract class AbstractComputer<U, T, R> implements IComputer<U, T, R> {
 	protected List<TripNode> tripNodes;
+
 	@Autowired
-	private IValidator<List<TripNode>> validator;
+	protected IValidator<List<TripNode>> validator;//Not initialized at the beginning
 
 	public AbstractComputer() {
 		if (tripNodes == null || tripNodes.isEmpty()) {
@@ -34,11 +35,14 @@ public abstract class AbstractComputer<U, T, R> implements IComputer<U, T, R> {
 		return compute(t, null);
 	}
 
+
 	@Override
 	public void prepareRoutesData(String graph) {
 		List<TripNode> tripNodes = initialize(graph);
 
-		validator.validate(tripNodes);
+		if (validator != null) {
+			validator.validate(tripNodes);
+		}
 
 		this.tripNodes = Collections.synchronizedList(tripNodes);
 	}

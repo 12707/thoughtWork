@@ -6,13 +6,19 @@ import com.thoughtWork.trains.core.impl.DistanceComputer;
 import com.thoughtWork.trains.core.impl.TripsComputer;
 import com.thoughtWork.trains.domain.Route;
 import com.thoughtWork.trains.domain.Trip;
+import com.thoughtWork.trains.domain.TripNode;
 import com.thoughtWork.trains.service.ITrainInfoService;
+import com.thoughtWork.trains.validation.IValidator;
+import com.thoughtWork.trains.validation.impl.InputTripsValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -71,20 +77,24 @@ public class TrainInfoServiceImplTest {
 	@Configuration
 	static class Config {
 		@Bean
+		public IComputer<Integer, Route, TripRule> getDistanceComputer() {
+			return new DistanceComputer();
+		}
+
+		@Bean
+		public IComputer<Integer, Trip, TripRule> getTripComputer() {
+			return new TripsComputer();
+		}
+
+		@Bean
 		public ITrainInfoService trainInfoServiceBuilder() {
 			return new TrainInfoServiceImpl();
 		}
 
 		@Bean
-		public IComputer<Integer, Route, TripRule> getDistanceComputer() {
-			IComputer<Integer, Route, TripRule> computer = new DistanceComputer();
-			return computer;
+		public IValidator<List<TripNode>> getvlidator() {
+			return new InputTripsValidator();
 		}
 
-		@Bean
-		public IComputer<Integer, Trip, TripRule> getTripComputer() {
-			IComputer<Integer, Trip, TripRule> computer = new TripsComputer();
-			return computer;
-		}
 	}
 }

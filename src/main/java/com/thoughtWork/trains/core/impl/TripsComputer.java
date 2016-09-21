@@ -4,7 +4,6 @@ import com.thoughtWork.trains.core.AbstractComputer;
 import com.thoughtWork.trains.core.TripRule;
 import com.thoughtWork.trains.domain.Town;
 import com.thoughtWork.trains.domain.Trip;
-import org.springframework.boot.ApplicationArguments;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -27,4 +26,5 @@ public class TripsComputer extends AbstractComputer<Integer, Trip, TripRule> {
 
 		return trips.size();
 	}
+
 }
