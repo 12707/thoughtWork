@@ -60,6 +60,13 @@ public class TrainInfoServiceImpl implements ITrainInfoService {
         return result.toString();
     }
 
+    @Override
+    public boolean changeInitData(String graph) {
+        distanceComputer.prepareRoutesData(graph);
+        tripsComputer.prepareRoutesData(graph);
+        return true;
+    }
+
     private Route generateRoute(String routes) {
         StringTokenizer stringTokenizer = new StringTokenizer(routes, "-");
         List<Town> towns = new ArrayList();

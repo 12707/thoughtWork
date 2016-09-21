@@ -20,14 +20,6 @@ import static com.thoughtWork.trains.util.RoutesQueryUtil.lookup;
  */
 @Component
 public class DistanceComputer extends AbstractComputer<Integer, Route, TripRule> {
-
-    public DistanceComputer(ApplicationArguments arguments) {
-        super(arguments);
-    }
-
-    public DistanceComputer() {
-    }
-
     @Override
     public Integer compute(Route route, TripRule tripRule) {
         List<Trip> trips = generateTrips(route);

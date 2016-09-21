@@ -9,4 +9,6 @@ public interface ITrainInfoService {
     //TripNumberResponse calcTripNumber(String trip, boolean isDistanceRestriction);
 
     String calcTripNumber(String trip, String rule, int limit);
+
+    boolean changeInitData(String graph);
 }

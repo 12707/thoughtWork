@@ -13,41 +13,41 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/trainInfo")
 public class TrainInfoController {
-    @Autowired
-    private ITrainInfoService trainInfoService;
+	@Autowired
+	private ITrainInfoService trainInfoService;
 
-    /**
-     * /distance/A-C-E
-     *
-     * @param route
-     * @return
-     */
-    @GetMapping("/distance/{route}")
-    public String calcRouteDistance(@PathVariable("route") String route) {
-        return trainInfoService.calcRouteDistance(route, false);
-    }
+	/**
+	 * /distance/A-C-E
+	 *
+	 * @param route
+	 * @return
+	 */
+	@GetMapping("/distance/{route}")
+	public String calcRouteDistance(@PathVariable("route") String route) {
+		return trainInfoService.calcRouteDistance(route, false);
+	}
 
-    /**
-     * /shortest/distance/C-C
-     *
-     * @param route
-     * @return
-     */
-    @GetMapping("/shortest/distance/{route}")
-    public String calcRouteShortestDistance(@PathVariable String route) {
-        return trainInfoService.calcRouteDistance(route, true);
-    }
+	/**
+	 * /shortest/distance/C-C
+	 *
+	 * @param route
+	 * @return
+	 */
+	@GetMapping("/shortest/distance/{route}")
+	public String calcRouteShortestDistance(@PathVariable String route) {
+		return trainInfoService.calcRouteDistance(route, true);
+	}
 
-    /**
-     * /trips/CC/maximum/4
-     *
-     * @param trip
-     * @param rule
-     * @param limit
-     * @return
-     */
-    @GetMapping("/trips/{trip}/{rule}/{limit}")
-    public String calcTripNumber(@PathVariable String trip, @PathVariable String rule, @PathVariable int limit) {
-        return trainInfoService.calcTripNumber(trip, rule, limit);
-    }
+	/**
+	 * /trips/CC/maximum/4
+	 *
+	 * @param trip
+	 * @param rule
+	 * @param limit
+	 * @return
+	 */
+	@GetMapping("/trips/{trip}/{rule}/{limit}")
+	public String calcTripNumber(@PathVariable String trip, @PathVariable String rule, @PathVariable int limit) {
+		return trainInfoService.calcTripNumber(trip, rule, limit);
+	}
 }

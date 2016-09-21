@@ -13,7 +13,6 @@ import org.junit.runners.JUnit4;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.thoughtWork.trains.util.RouteNodesUtil.initialize;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -30,8 +29,7 @@ public class TripsComputerTest {
 
 	@Before
 	public void init() {
-		tripNodes = initialize(graph);
-		computer.prepareRoutesData(tripNodes);
+		computer.prepareRoutesData(graph);
 	}
 
 	@Test

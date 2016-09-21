@@ -17,14 +17,6 @@ import static com.thoughtWork.trains.util.RoutesQueryUtil.lookup;
  */
 @Component
 public class TripsComputer extends AbstractComputer<Integer, Trip, TripRule> {
-
-	public TripsComputer(ApplicationArguments arguments) {
-		super(arguments);
-	}
-
-	public TripsComputer() {
-	}
-
 	@Override
 	public Integer compute(Trip trip, TripRule tripRule) {
 		List<List<Town>> trips = new ArrayList<>();

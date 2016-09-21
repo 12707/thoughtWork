@@ -12,5 +12,5 @@ public interface IComputer<U, T, R> {
 
 	U compute(T t);
 
-	void prepareRoutesData(List<TripNode> tripNodes);
+	void prepareRoutesData(String graph);
 }
